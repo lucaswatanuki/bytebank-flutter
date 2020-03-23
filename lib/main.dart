@@ -15,39 +15,32 @@ class BytebankApp extends StatelessWidget {
 }
 
 class FormularioTransferencia extends StatelessWidget {
-
-final TextEditingController _controladorNumeroConta = TextEditingController();
-final TextEditingController _controladorValor = TextEditingController();
+  final TextEditingController _controladorNumeroConta = TextEditingController();
+  final TextEditingController _controladorValor = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Column(
         children: <Widget>[
-          Padding(
-            padding: const EdgeInsets.all(16.0),
-            child: TextField(
-              controller: _controladorNumeroConta,
-              style: TextStyle(fontSize: 24.0),
-              decoration: InputDecoration(
-                  labelText: 'Número da conta', hintText: '0000'),
-              keyboardType: TextInputType.number,
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.all(16.0),
-            child: TextField(
-              controller: _controladorValor,
-              style: TextStyle(fontSize: 24.0),
-              decoration: InputDecoration(
-                icon: Icon(Icons.monetization_on),
-                labelText: 'Valor', 
-                hintText: '00.0'),
-              keyboardType: TextInputType.number,
-            ),
-          ),
+          Editor(
+              controlador: _controladorNumeroConta,
+              rotulo: 'Numero da conta',
+              dica: '0000'),
+          Editor(
+              controlador: _controladorValor,
+              rotulo: 'Valor',
+              dica: '00.00',
+              icon: Icons.monetization_on),
           RaisedButton(
             onPressed: () {
+              final int numeroConta =
+                  int.tryParse(_controladorNumeroConta.text);
+              final double valor = double.tryParse(_controladorValor.text);
+              if (numeroConta != null && valor != null) {
+                Transferencia transferencia =
+                    new Transferencia(valor, numeroConta);
+              }
             },
             child: Text('Confirmar'),
           ),
@@ -56,6 +49,36 @@ final TextEditingController _controladorValor = TextEditingController();
       appBar: AppBar(
         title: Text('Transferências'),
       ),
+    );
+  }
+}
+
+class Editor extends StatelessWidget {
+  final String rotulo;
+  final String dica;
+  final TextEditingController controlador;
+  final IconData icon;
+
+  Editor({this.controlador, this.rotulo, this.dica, this.icon});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Column(children: <Widget>[
+        Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: TextField(
+            controller: controlador,
+            style: TextStyle(fontSize: 24.0),
+            decoration: InputDecoration(
+              icon: icon != null ? Icon(icon) : null,
+              labelText: rotulo,
+              hintText: dica,
+            ),
+            keyboardType: TextInputType.number,
+          ),
+        ),
+      ]),
     );
   }
 }
