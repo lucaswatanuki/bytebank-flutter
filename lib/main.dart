@@ -1,3 +1,4 @@
+import 'package:bytebank/screens/home/dashboard.dart';
 import 'package:flutter/material.dart';
 
 import 'screens/transferencias/lista.dart';
@@ -10,7 +11,7 @@ class BytebankApp extends StatelessWidget {
     return MaterialApp(
       darkTheme: ThemeData.dark(),
       debugShowCheckedModeBanner: false,
-      home: ListaTransferencias(),
+      home: Dashboard(),
     );
   }
 }
