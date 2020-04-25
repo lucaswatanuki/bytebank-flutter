@@ -12,7 +12,7 @@ class FormularioContatoaState extends State<FormularioContato> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Contato"),
+        title: Text("Adicionar Contato"),
       ),
       body: null,
     );
