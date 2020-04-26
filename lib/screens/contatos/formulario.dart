@@ -40,7 +40,7 @@ class FormularioContatoaState extends State<FormularioContato> {
                   final String nome = _nomeController.text;
                   final int numeroConta =
                       int.tryParse(_numeroContaController.text);
-                  final novoContato = Contato(nome, numeroConta);
+                  final novoContato = Contato(0, nome, numeroConta);
                   Navigator.pop(context, novoContato);
                 },
               ),
