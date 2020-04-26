@@ -16,7 +16,7 @@ class Editor extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(16.0),
+      padding: const EdgeInsets.all(8.0),
       child: TextField(
         controller: controlador,
         style: TextStyle(fontSize: 24.0),
@@ -25,7 +25,6 @@ class Editor extends StatelessWidget {
           labelText: rotulo,
           hintText: dica,
         ),
-        keyboardType: TextInputType.number,
       ),
     );
   }
