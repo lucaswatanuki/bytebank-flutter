@@ -1,6 +1,5 @@
 import 'package:bytebank/components/editor.dart';
 import 'package:bytebank/models/contato.dart';
-import 'package:bytebank/screens/contatos/lista.dart';
 import 'package:flutter/material.dart';
 
 class FormularioContato extends StatefulWidget {
