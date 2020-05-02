@@ -1,6 +1,9 @@
+import 'package:bytebank/components/LoadingComponent.dart';
 import 'package:bytebank/database/app_database.dart';
+import 'package:bytebank/database/dao/contato_dao.dart';
 import 'package:bytebank/models/contato.dart';
 import 'package:bytebank/screens/contatos/formulario.dart';
+import 'package:bytebank/screens/transferencias/lista.dart';
 import 'package:flutter/material.dart';
 
 class ListaContato extends StatefulWidget {
@@ -9,6 +12,8 @@ class ListaContato extends StatefulWidget {
 }
 
 class _ListaContatoState extends State<ListaContato> {
+  final ContatoDAO contatoDAO = ContatoDAO();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -17,22 +22,13 @@ class _ListaContatoState extends State<ListaContato> {
       ),
       body: FutureBuilder<List<Contato>>(
         initialData: List(),
-        future: findAll(),
+        future: contatoDAO.findAll(),
         builder: (context, snapshot) {
           switch (snapshot.connectionState) {
             case ConnectionState.none:
               break;
             case ConnectionState.waiting:
-              return Center(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    CircularProgressIndicator(),
-                    Text("Loading"),
-                  ],
-                ),
-              );
+              return LoadingComponent();
               break;
             case ConnectionState.active:
               // TODO: Handle this case.
@@ -72,6 +68,7 @@ class _ListaContatoState extends State<ListaContato> {
 
 class _ItemContato extends StatelessWidget {
   final Contato contato;
+
   _ItemContato(this.contato);
 
   @override

@@ -1,5 +1,6 @@
 import 'package:bytebank/components/editor.dart';
 import 'package:bytebank/components/error_dialogue.dart';
+import 'package:bytebank/database/dao/transferencia_dao.dart';
 import 'package:bytebank/models/transferencias.dart';
 import 'package:flutter/material.dart';
 
@@ -19,6 +20,7 @@ class FormularioTransferenciaState extends State<FormularioTransferencia> {
   final TextEditingController _controladorCampoNumeroConta =
       TextEditingController();
   final TextEditingController _controladorCampoValor = TextEditingController();
+  final TransferenciaDAO transferenciaDAO = TransferenciaDAO();
 
   @override
   Widget build(BuildContext context) {
@@ -51,15 +53,17 @@ class FormularioTransferenciaState extends State<FormularioTransferencia> {
 
   void _criaTransferencia(BuildContext context) {
     final int numeroConta = int.tryParse(_controladorCampoNumeroConta.text);
-    final double valor = double.tryParse(_controladorCampoValor.text);
+    final valor = double.tryParse(_controladorCampoValor.text);
     if (numeroConta != null && valor != null) {
-      final transferenciaCriada = Transferencia(valor, numeroConta);
-      Navigator.pop(context, transferenciaCriada);
+      final transferenciaCriada = Transferencia(0, numeroConta, valor);
+      transferenciaDAO.save(transferenciaCriada);
+      Navigator.pop(context);
+    } else {
+      showDialog(
+        context: context,
+        builder: (context) => ErrorDialogue(
+            "Informar número de conta e valor de transferência válidos."),
+      );
     }
-    showDialog(
-      context: context,
-      builder: (context) => ErrorDialogue(
-          "Informar número de conta e valor de transferência válidos."),
-    );
   }
 }
