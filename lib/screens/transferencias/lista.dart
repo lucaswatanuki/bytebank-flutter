@@ -1,4 +1,4 @@
-import 'package:bytebank/components/LoadingComponent.dart';
+import 'package:bytebank/components/loading_component.dart';
 import 'package:bytebank/database/dao/transferencia_dao.dart';
 import 'package:bytebank/models/transferencias.dart';
 import 'package:bytebank/screens/transferencias/formulario.dart';

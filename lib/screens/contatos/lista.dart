@@ -1,4 +1,4 @@
-import 'package:bytebank/components/LoadingComponent.dart';
+import 'package:bytebank/components/loading_component.dart';
 import 'package:bytebank/database/app_database.dart';
 import 'package:bytebank/database/dao/contato_dao.dart';
 import 'package:bytebank/models/contato.dart';

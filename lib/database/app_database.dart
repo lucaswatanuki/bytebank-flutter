@@ -1,4 +1,5 @@
-import 'package:bytebank/models/contato.dart';
+import 'package:bytebank/database/dao/contato_dao.dart';
+import 'package:bytebank/database/dao/transferencia_dao.dart';
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 
@@ -7,15 +8,8 @@ Future<Database> createDatabase() async {
   return openDatabase(
     path,
     onCreate: (db, version) async {
-      await db.execute('CREATE TABLE contato('
-              'id INTEGER PRIMARY KEY, '
-              'nome TEXT, '
-              'numero_conta INTEGER)'
-      );
-      await db.execute('CREATE TABLE transferencia('
-          'id INTEGER PRIMARY KEY, '
-          'numero_conta INTEGER, '
-          'valor REAL)');
+      await db.execute(ContatoDAO.tableSQL);
+      await db.execute(TransferenciaDAO.tableSQL);
     },
     version: 1,
     onDowngrade: onDatabaseDowngradeDelete,
