@@ -1,32 +1,59 @@
+import 'package:bytebank/database/app_database.dart';
 import 'package:bytebank/models/contato.dart';
 import 'package:bytebank/screens/contatos/formulario.dart';
 import 'package:flutter/material.dart';
 
 class ListaContato extends StatelessWidget {
-  final List<Contato> contatos = List();
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text('Contatos'),
       ),
-      body: ListView.builder(
-        itemBuilder: (BuildContext context, int index) {
-          final Contato contato = contatos[index];
-          return _ItemContato(contato);
+      body: FutureBuilder<List<Contato>>(
+        initialData: List(),
+        future: findAll(),
+        builder: (context, snapshot) {
+          switch (snapshot.connectionState) {
+            case ConnectionState.none:
+              break;
+            case ConnectionState.waiting:
+              return Center(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    CircularProgressIndicator(),
+                    Text("Loading"),
+                  ],
+                ),
+              );
+              break;
+            case ConnectionState.active:
+              // TODO: Handle this case.
+              break;
+            case ConnectionState.done:
+              final List<Contato> contatos = snapshot.data;
+              return ListView.builder(
+                itemBuilder: (BuildContext context, int index) {
+                  final Contato contato = contatos[index];
+                  return _ItemContato(contato);
+                },
+                itemCount: contatos.length,
+              );
+              break;
+          }
+          return Text("Erro inesperado.");
         },
-        itemCount: contatos.length,
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          Navigator.of(context)
-              .push(
-                MaterialPageRoute(builder: (context) => FormularioContato()),
-              )
-              .then(
-                (novoContato) => debugPrint(novoContato.toString()),
-              );
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => FormularioContato(),
+            ),
+          );
         },
         child: Icon(
           Icons.add,

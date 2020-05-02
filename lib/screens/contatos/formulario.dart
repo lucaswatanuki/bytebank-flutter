@@ -1,15 +1,16 @@
 import 'package:bytebank/components/editor.dart';
+import 'package:bytebank/database/app_database.dart';
 import 'package:bytebank/models/contato.dart';
 import 'package:flutter/material.dart';
 
 class FormularioContato extends StatefulWidget {
   @override
-  State<StatefulWidget> createState() {
-    return FormularioContatoaState();
+  _FormularioContatoaState createState() {
+    return _FormularioContatoaState();
   }
 }
 
-class FormularioContatoaState extends State<FormularioContato> {
+class _FormularioContatoaState extends State<FormularioContato> {
   final TextEditingController _nomeController = TextEditingController();
   final TextEditingController _numeroContaController = TextEditingController();
 
@@ -39,11 +40,12 @@ class FormularioContatoaState extends State<FormularioContato> {
                   final String nome = _nomeController.text;
                   final int numeroConta =
                       int.tryParse(_numeroContaController.text);
-                  final novoContato = Contato(0, nome, numeroConta);
+                  final Contato novoContato = new Contato(0, nome, numeroConta);
+                  save(novoContato);
                   Navigator.pop(context, novoContato);
                 },
               ),
-            )
+            ),
           ],
         ),
       ),
