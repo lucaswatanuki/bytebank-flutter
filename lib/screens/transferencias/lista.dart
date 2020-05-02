@@ -26,7 +26,11 @@ class ListaTransferenciaState extends State<ListaTransferencias> {
         },
       ),
       floatingActionButton: FloatingActionButton(
-        child: Icon(Icons.add),
+        backgroundColor: Colors.green,
+        child: Icon(
+          Icons.add,
+          color: Colors.white,
+        ),
         onPressed: () {
           Navigator.push(context, MaterialPageRoute(builder: (context) {
             return FormularioTransferencia();

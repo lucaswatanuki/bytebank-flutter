@@ -1,8 +1,9 @@
 import 'package:bytebank/components/editor.dart';
+import 'package:bytebank/components/error_dialogue.dart';
 import 'package:bytebank/models/transferencias.dart';
 import 'package:flutter/material.dart';
 
-const appBarTitle = 'Criando Transferência';
+const appBarTitle = 'Adicionar Transferência';
 const dicaText = '0000';
 const numeroConta = 'Número da conta';
 const valor = 'Valor';
@@ -55,5 +56,10 @@ class FormularioTransferenciaState extends State<FormularioTransferencia> {
       final transferenciaCriada = Transferencia(valor, numeroConta);
       Navigator.pop(context, transferenciaCriada);
     }
+    showDialog(
+      context: context,
+      builder: (context) => ErrorDialogue(
+          "Informar número de conta e valor de transferência válidos."),
+    );
   }
 }
