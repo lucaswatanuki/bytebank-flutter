@@ -3,7 +3,12 @@ import 'package:bytebank/models/contato.dart';
 import 'package:bytebank/screens/contatos/formulario.dart';
 import 'package:flutter/material.dart';
 
-class ListaContato extends StatelessWidget {
+class ListaContato extends StatefulWidget {
+  @override
+  _ListaContatoState createState() => _ListaContatoState();
+}
+
+class _ListaContatoState extends State<ListaContato> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
